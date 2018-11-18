@@ -1,0 +1,6 @@
+<ng-container *ngIf="!loggedIn">
+    <app-login (login)="logInUser($event)"></app-login>
+</ng-container>
+<ng-container *ngIf="loggedIn">
+    <router-outlet></router-outlet>
+</ng-container>

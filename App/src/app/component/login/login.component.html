@@ -1,3 +1,16 @@
-<p>
-  login works!
-</p>
+<div id="flex">
+    <div id="container">
+       
+        <h1>BROWSER GAMES</h1>
+
+        <hr>
+
+        <form (submit)="submit($event)" [formGroup]="form">
+            <label for="nickname">Please insert a nickname!</label><br>
+            <input type="text" formControlName="nickname" placeholder="Insert nickname..."><br>
+            <button [disabled]="form.invalid">Lego</button>
+          </form>
+    
+    </div>
+</div>
+
