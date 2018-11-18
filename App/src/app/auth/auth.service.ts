@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
+import { SocketWrapper } from '../service/socket.wrapper';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor() { }
+  constructor(private socketWrapper: SocketWrapper) { }
 
   public isAuthenticated(): boolean {
 
-    return (localStorage.getItem('nickname') != null);
+    return (this.socketWrapper.getSocket() != null);
   }
 }

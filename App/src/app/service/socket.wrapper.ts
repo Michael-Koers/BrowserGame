@@ -7,39 +7,35 @@ export class SocketWrapper {
     private socket: any;
     private uri: string;
 
-	connect(uri: string) {
-        if(!this.uri){
+    connect(uri: string) {
+        if (!this.uri) {
             this.uri = uri;
         }
-		let subscriber: Subscriber<string>;
-		let observable = new Observable(s => {
-			subscriber = s;
-		});
+        let subscriber: Subscriber<string>;
+        let observable = new Observable(s => {
+            subscriber = s;
+        });
 
-		let socket = new WebSocket(uri);
-		socket.addEventListener('open', () => console.log('socket open'));
-		socket.addEventListener('close', () => console.log('socket gesloten'));
-		socket.addEventListener('message', e => {
-			subscriber.next(e.data);
-		});
+        let socket = new WebSocket(uri);
+        socket.addEventListener('open', () => console.log('socket open'));
+        socket.addEventListener('close', () => console.log('socket gesloten'));
+        socket.addEventListener('message', e => {
+            subscriber.next(e.data);
+        });
 
-		return {
-			messages: observable,
-			send(message: string) {
-				socket.send(message);
-			}
-		}
+        return {
+            messages: observable,
+            send(message: string) {
+                socket.send(message);
+            }
+        }
     }
-    
-    setSocket(socket: any){
+
+    setSocket(socket: any) {
         this.socket = socket;
     }
 
-    getSocket(){
-        if(this.socket){
-            return this.socket;
-        } else{
-            return this.connect(this.uri);
-        }
+    getSocket() {
+        return this.socket;
     }
 }
