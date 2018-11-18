@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subscriber } from 'rxjs';
+import { SocketMessage } from '../models/socket.message';
 
 @Injectable()
 export class SocketWrapper {
 
     private socket: any;
     private uri: string;
+    private messages: string[] = [];
 
     connect(uri: string) {
         if (!this.uri) {
@@ -37,5 +39,13 @@ export class SocketWrapper {
 
     getSocket() {
         return this.socket;
+    }
+
+    pushSocketMessage(m: any){
+        this.messages.push(m);
+    }
+
+    getSocketMessages(){
+        return this.messages;
     }
 }

@@ -1,16 +1,24 @@
 <div id="flex">
     <div id="container">
-       
+
         <h1>BROWSER GAMES</h1>
 
         <hr>
 
-        <form (submit)="submit($event)" [formGroup]="form">
-            <label for="nickname">Please insert a nickname!</label><br>
-            <input type="text" formControlName="nickname" placeholder="Insert nickname..."><br>
+        <form (submit)="submit()" [formGroup]="form">
+
+            <div>
+                <label for="nickname">Please insert a nickname!</label><br>
+                <input type="text" formControlName="nickname" placeholder="Insert nickname..."><br>
+            </div>
+
+            <!-- <div>
+                <label for="ip">Please insert server IP address!</label><br>
+                <input type="text" formControlName="IP" placeholder="192.168.xxx.xxx"><br>
+            </div> -->
+            
             <button [disabled]="form.invalid">Lego</button>
-          </form>
-    
+        
+        </form>
     </div>
 </div>
-

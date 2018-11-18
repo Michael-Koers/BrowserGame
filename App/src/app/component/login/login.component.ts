@@ -12,7 +12,6 @@ import { SocketWrapper } from 'src/app/service/socket.wrapper';
 })
 export class LoginComponent implements OnInit {
 
-    private WS_URL: string = "ws://localhost:3000/lobby";
     private messages: string[] = [];
     private socket: any;
     private loggedIn: boolean = false;
@@ -23,29 +22,26 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            nickname: ['', [Validators.required]]
+            nickname: ['', [Validators.required]],
+            // IP: ['', [Validators.required]]
         })
     }
 
-    submit(event: User) {
-        this.socket = this.socketWrapper.connect(this.WS_URL);
+    submit() {
+
+        let ip_address = this.form.value.IP;
+        // this.socket = this.socketWrapper.connect(`ws://${ip_address}:3000/lobby`);
+        this.socket = this.socketWrapper.connect('ws://localhost:3000/lobby');
+
         this.socket.messages.subscribe(m => {
             let response = <SocketMessage>JSON.parse(m);
-            
-            this.messages.push(m);
 
-            console.log(response);
+            this.socketWrapper.pushSocketMessage(m);
 
-            if(response.status){
-                console.log("response succes");
-                localStorage.setItem('nickname', event.username);
-                this.loggedIn = true;
+            if (response.status) {
+                this.socketWrapper.setSocket(this.socket);
                 this.router.navigate(['lobby']);
             }
         });
-
-        this.socketWrapper.setSocket(this.socket);
     }
-
-
 }

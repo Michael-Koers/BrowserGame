@@ -1,3 +1,6 @@
 export enum SocketActions{
-    LOGIN
+    LOGIN = "LOGIN",
+    GETUSERS = "GETUSERS",
+    SENDCHAT = "SENDCHAT",
+    RECEIVECHAT = "RECEIVECHAT"
 }

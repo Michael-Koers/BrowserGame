@@ -10,7 +10,7 @@ import { AuthGuardService } from './auth/auth-guard.service';
 export const router: Route[] = [
     {
         path: 'login',
-        component: LoginComponent,
+        component: LoginComponent
     },
     {
         path: 'lobby',
@@ -24,6 +24,6 @@ export const router: Route[] = [
     },
     {
         path: '**',
-        redirectTo: '/login'
+        redirectTo: '/login',
     }
 ]

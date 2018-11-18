@@ -1,4 +1,7 @@
-export interface SocketMessage{
-    message: string;
+import { SocketActions } from "./socket.actions";
+
+export class SocketMessage{
+    action: SocketActions;
     status: string;
+    data: string;
 }
