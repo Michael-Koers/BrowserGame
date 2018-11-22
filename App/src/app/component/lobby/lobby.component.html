@@ -2,4 +2,16 @@
   lobby works!
 </p>
 
-<button (click)="sendMessage()">Send server message!</button>
+<ul>
+    <li *ngFor="let user of onlineUsers">{{user}}</li>
+</ul>
+
+<ul>
+    <li *ngFor="let message of chatMessages">{{message.username}}: {{message.message}}</li>
+</ul>
+
+<form [formGroup]="form">
+    <input type="text" formControlName="message" placeholder="say hello to friendos!:D">
+</form>
+
+<button (click)="sendMessage()">Send message!</button>

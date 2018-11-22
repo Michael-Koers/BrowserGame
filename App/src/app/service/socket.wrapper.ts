@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subscriber } from 'rxjs';
 import { SocketMessage } from '../models/socket.message';
+import { SocketActions } from '../models/socket.actions';
 
 @Injectable()
 export class SocketWrapper {

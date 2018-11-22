@@ -8,14 +8,14 @@
         <form (submit)="submit()" [formGroup]="form">
 
             <div>
-                <label for="nickname">Please insert a nickname!</label><br>
-                <input type="text" formControlName="nickname" placeholder="Insert nickname..."><br>
+                <label for="username">Please insert a username!</label><br>
+                <input type="text" formControlName="username" placeholder="Insert username..."><br>
             </div>
 
-            <!-- <div>
+            <div>
                 <label for="ip">Please insert server IP address!</label><br>
-                <input type="text" formControlName="IP" placeholder="192.168.xxx.xxx"><br>
-            </div> -->
+                <input type="text" formControlName="IP" placeholder="192.168.1.104"><br>
+            </div>
             
             <button [disabled]="form.invalid">Lego</button>
         
