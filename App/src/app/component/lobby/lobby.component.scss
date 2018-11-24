@@ -1,0 +1,17 @@
+.flexContainer{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: space-evenly;
+}
+
+.flexItem{
+}
+
+.flexItemSidebar{
+    flex: 1.5 1.5 100%;
+}
+
+.flexItemMain{
+    flex: 1 1 100%;
+}

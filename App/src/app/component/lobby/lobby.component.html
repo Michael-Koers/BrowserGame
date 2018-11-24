@@ -1,17 +1,30 @@
-<p>
-  lobby works!
-</p>
+<!--CHAT-->
+<div class="flexContainer">
+    <div class="flexItem flexItemSidebar">
 
-<ul>
-    <li *ngFor="let user of onlineUsers">{{user}}</li>
-</ul>
+        <ul>
+            <li *ngFor="let message of chatMessages">{{message.username}}: {{message.message}}</li>
+        </ul>
 
-<ul>
-    <li *ngFor="let message of chatMessages">{{message.username}}: {{message.message}}</li>
-</ul>
+        <form [formGroup]="form">
+            <input type="text" formControlName="message" placeholder="say hello to friendos!:D">
+        </form>
 
-<form [formGroup]="form">
-    <input type="text" formControlName="message" placeholder="say hello to friendos!:D">
-</form>
+        <button (click)="sendMessage()">Send message!</button>
 
-<button (click)="sendMessage()">Send message!</button>
+    </div>
+
+    <!--GAME LIST-->
+    <div class="flexItem flexItemMain">
+        <div></div>
+    </div>
+
+    <!--ONLINE USERS-->
+    <div class="flexItem flexItemSidebar">
+
+        <ul>
+            <li *ngFor="let user of onlineUsers">{{user}}</li>
+        </ul>
+
+    </div>
+</div>

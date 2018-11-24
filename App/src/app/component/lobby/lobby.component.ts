@@ -39,8 +39,8 @@ export class LobbyComponent implements OnInit {
         //Socket message handling
         this.socket.messages.subscribe(msg => {
             let parsedMsg = <SocketMessage>JSON.parse(msg);
-            console.log(parsedMsg);
-            switch(parsedMsg.action){
+            console.log("New Message!", parsedMsg);
+            switch (parsedMsg.action) {
                 case SocketActions.NEWUSER:
                     console.log("New user online!");
                     this.onlineUsers.push(parsedMsg.data);
@@ -55,6 +55,17 @@ export class LobbyComponent implements OnInit {
                         message: parsedMsg.data,
                         username: parsedMsg.user
                     })
+                    break;
+                case SocketActions.DISCONNECTED:
+                    console.log("Someone left the lobby :(");
+                    let index = this.onlineUsers.indexOf(parsedMsg.data);
+                    if (index > -1) {
+                        this.onlineUsers.splice(index, 1);
+                        this.chatMessages.push({
+                            message: `${parsedMsg.data} has left the lobby`,
+                            username: "Server"
+                        })
+                    }
                     break;
             }
         })

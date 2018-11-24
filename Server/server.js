@@ -1,3 +1,5 @@
+'use strict'
+
 let express = require('express');
 let app = express();
 let expressWs = require('express-ws')(app);
@@ -11,9 +13,11 @@ let registeredClients = [];
 let socketActions = Object.freeze({
     LOGIN: "LOGIN",
     NEWUSER: "NEWUSER",
+    DISCONNECTED: "DISCONNECTED",
     GETUSERS: "GETUSERS",
     SENDCHAT: "SENDCHAT",
-    RECEIVECHAT: "RECEIVECHAT"
+    RECEIVECHAT: "RECEIVECHAT",
+    UNKNOWN: "UNKNOWN"
 });
 
 app.ws('/lobby', function (ws, req) {
@@ -27,6 +31,7 @@ app.ws('/lobby', function (ws, req) {
     ws.on('message', function (msg) {
 
         let req = JSON.parse(msg);
+        let index;
 
         switch (req.action) {
             case socketActions.GETUSERS:
@@ -48,8 +53,8 @@ app.ws('/lobby', function (ws, req) {
                 console.log("SEND CHAT");
 
                 registeredClients.forEach(client => {
-                    if (client.socket != ws) {
-                        client.socket.send(JSON.stringify({
+                    if (client != ws) {
+                        client.send(JSON.stringify({
                             action: socketActions.RECEIVECHAT,
                             data: req.data,
                             status: "SUCCESS",
@@ -61,12 +66,12 @@ app.ws('/lobby', function (ws, req) {
                 break;
 
             case socketActions.LOGIN:
-                let index = unregisteredClients.indexOf(ws);
+                index = unregisteredClients.indexOf(ws);
                 if (index > -1) {
 
                     //Update all clients of new friendo in chat!:D
                     registeredClients.forEach(client => {
-                        client.socket.send(JSON.stringify({
+                        client.send(JSON.stringify({
                             action: socketActions.NEWUSER,
                             data: req.data,
                             status: "SUCCESS",
@@ -76,11 +81,11 @@ app.ws('/lobby', function (ws, req) {
 
                     //Move client from unregistered to registered
                     unregisteredClients.splice(index, 1);
-                    registeredClients.push({ socket: ws, username: req.data });
-                    
+                    registeredClients.push(ws);
+
                     //Set username on WebSocket object for easy access
                     ws.username = req.data;
-                    
+
                     //Necessary logging
                     console.log("LOG IN SUCCESSFULL:", req.data);
 
@@ -93,13 +98,41 @@ app.ws('/lobby', function (ws, req) {
                     ws.send(JSON.stringify({ data: "Something went wrong when registering", status: "FAIL" }));
                 }
                 break;
+
+            case socketActions.DISCONNECTED:
+                console.log("Client disconnected");
+
+
+            default:
+                console.log("client send unknown action :/");
+                ws.send(JSON.stringify({
+                    action: socketActions.UNKNOWN,
+                    data: "Server received unknown action from you",
+                    status: "FAIL",
+                    user: "Server",
+                }));
+                break;
         }
     });
 
     ws.on('close', function () {
-        console.log("Web Socket closed connection")
+        console.log("Web Socket closed connection");
+        console.log("clients:", registeredClients);
+        console.log("ws:", ws);
         let index = registeredClients.indexOf(ws);
-        registeredClients.splice(index, 1);
+        console.log("index:", index);
+        if (index > -1) {
+            registeredClients.splice(index, 1);
+
+            registeredClients.forEach(client => {
+                client.send(JSON.stringify({
+                    action: socketActions.DISCONNECTED,
+                    data: ws.username,
+                    status: "SUCCESS",
+                    user: ws.username
+                }))
+            })
+        };
     })
 });
 
