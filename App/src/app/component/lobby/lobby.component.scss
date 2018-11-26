@@ -6,12 +6,25 @@
 }
 
 .flexItem{
+    border: 3px solid darkblue;
 }
 
 .flexItemSidebar{
     flex: 1.5 1.5 100%;
+    
+    
 }
 
 .flexItemMain{
+    margin-left: 10px;
+    margin-right: 10px;
     flex: 1 1 100%;
+}
+
+.flexItemLeft{
+    border-radius: 50px 0 0 50px;
+}
+
+.flexItemRight{
+    border-radius: 0 50px 50px 0;
 }

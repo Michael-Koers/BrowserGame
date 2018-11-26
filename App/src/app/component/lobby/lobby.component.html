@@ -1,26 +1,26 @@
 <!--CHAT-->
 <div class="flexContainer">
-    <div class="flexItem flexItemSidebar">
+    <div class="flexItem flexItemSidebar flexItemLeft">
 
         <ul>
             <li *ngFor="let message of chatMessages">{{message.username}}: {{message.message}}</li>
         </ul>
 
-        <form [formGroup]="form">
-            <input type="text" formControlName="message" placeholder="say hello to friendos!:D">
-        </form>
+        <form (submit)="sendMessage()" [formGroup]="form">
+            <input type="text" #messageInput formControlName="message" autofocus>
+            <button>Send</button>
 
-        <button (click)="sendMessage()">Send message!</button>
+        </form>
 
     </div>
 
     <!--GAME LIST-->
-    <div class="flexItem flexItemMain">
+    <div class="flexItem flexItemMain flexItemMiddle">
         <div></div>
     </div>
 
     <!--ONLINE USERS-->
-    <div class="flexItem flexItemSidebar">
+    <div class="flexItem flexItemSidebar flexItemRight">
 
         <ul>
             <li *ngFor="let user of onlineUsers">{{user}}</li>

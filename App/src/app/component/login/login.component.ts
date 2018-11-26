@@ -25,16 +25,16 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         this.form = this.fb.group({
             username: ['', [Validators.required]],
-            IP: ['', [Validators.required]]
+            // IP: ['', [Validators.required]]
         })
     }
 
     submit() {
 
-        let ip_address = this.form.value.IP;
-        this.socket = this.socketWrapper.connect(`ws://${ip_address}:3000/lobby`);
+        // let ip_address = this.form.value.IP;
+        // this.socket = this.socketWrapper.connect(`ws://${ip_address}:3000/lobby`);
 
-        // this.socket = this.socketWrapper.connect('ws://localhost:3000/lobby');
+        this.socket = this.socketWrapper.connect('ws://localhost:3000/lobby');
 
         this.socket.messages.subscribe(m => {
             console.log("return msg", m);

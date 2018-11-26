@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 import { SocketWrapper } from 'src/app/service/socket.wrapper';
@@ -22,6 +22,8 @@ export class LobbyComponent implements OnInit {
     private messages: SocketMessage[] = [];
     private chatMessages: ChatMessage[] = [];
     private onlineUsers: String[] = [];
+
+    @ViewChild('messageInput') input: ElementRef;
 
     constructor(private fb: FormBuilder, private socketWrapper: SocketWrapper, private userProfile: UserProfile) { }
 
@@ -74,6 +76,7 @@ export class LobbyComponent implements OnInit {
     }
 
     sendMessage(): void {
+        
         this.msg = new SocketMessage();
         this.msg.action = SocketActions.SENDCHAT;
         this.msg.user = this.userProfile.username;
@@ -85,5 +88,11 @@ export class LobbyComponent implements OnInit {
         })
 
         this.socket.send(JSON.stringify(this.msg));
+
+        this.clearInput();
+    }
+
+    clearInput(){
+        this.input.nativeElement.value="";
     }
 }
