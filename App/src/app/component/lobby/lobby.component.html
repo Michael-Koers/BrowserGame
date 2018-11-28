@@ -1,13 +1,15 @@
 <!--CHAT-->
 <div class="flexContainer">
-    <div class="flexItem flexItemSidebar flexItemLeft">
+    <div class="flexItem flexItemLeft">
 
-        <ul>
-            <li *ngFor="let message of chatMessages">{{message.username}}: {{message.message}}</li>
+        <h1>Chat</h1>
+
+        <ul id="messageView">
+            <li class="message" *ngFor="let message of chatMessages"><b>{{message.username}}</b>: {{message.message}}</li>
         </ul>
-
-        <form (submit)="sendMessage()" [formGroup]="form">
-            <input type="text" #messageInput formControlName="message" autofocus>
+        
+        <form id="messageForm" (keyup.enter)="sendMessage()" [formGroup]="form">
+            <textarea type="text" #messageInput formControlName="message" maxlength="70" autofocus></textarea>
             <button>Send</button>
 
         </form>
@@ -15,15 +17,17 @@
     </div>
 
     <!--GAME LIST-->
-    <div class="flexItem flexItemMain flexItemMiddle">
+    <div class="flexItem flexItemMiddle">
         <div></div>
     </div>
 
     <!--ONLINE USERS-->
-    <div class="flexItem flexItemSidebar flexItemRight">
+    <div class="flexItem flexItemRight">
 
-        <ul>
-            <li *ngFor="let user of onlineUsers">{{user}}</li>
+        <h1>Users</h1>
+        
+        <ul id="userView">
+            <li class="user" *ngFor="let user of onlineUsers">{{user}}</li>
         </ul>
 
     </div>

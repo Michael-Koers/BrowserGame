@@ -32,6 +32,10 @@ export class LobbyComponent implements OnInit {
             message: ['', [Validators.required]]
         })
 
+        // this.onlineUsers = ['Michael', 'Lisa', 'Joey', 'Jeffrey', 'XHero89', 'abc', 'puppy111', 'habbolover123', 'santadude112', 'Michael', 'Lisa', 'Joey', 'Jeffrey', 'XHero89', 'abc', 'puppy111', 'habbolover123', 'santadude112', 'Michael', 'Lisa', 'Joey', 'Jeffrey', 'XHero89', 'abc', 'puppy111', 'habbolover123', 'santadude112', 'Michael', 'Lisa', 'Joey', 'Jeffrey', 'XHero89', 'abc', 'puppy111', 'habbolover123', 'santadude112']
+
+        
+
         this.socket = this.socketWrapper.getSocket();
 
         this.socket.send(JSON.stringify({
@@ -71,12 +75,10 @@ export class LobbyComponent implements OnInit {
                     break;
             }
         })
-
-
     }
 
     sendMessage(): void {
-        
+
         this.msg = new SocketMessage();
         this.msg.action = SocketActions.SENDCHAT;
         this.msg.user = this.userProfile.username;
@@ -92,7 +94,7 @@ export class LobbyComponent implements OnInit {
         this.clearInput();
     }
 
-    clearInput(){
-        this.input.nativeElement.value="";
+    clearInput() {
+        this.input.nativeElement.value = "";
     }
 }

@@ -9,22 +9,85 @@
     border: 3px solid darkblue;
 }
 
-.flexItemSidebar{
-    flex: 1.5 1.5 100%;
+.flexItemLeft{
+    flex-basis: 250px;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    #messageView{
+        height: 90%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
     
+    #messageForm{
+        height: 5%;
+        width: 100%;
+
+        textarea{
+            resize: none;
+            height: 100%;
+            width: 80%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        button {
+            height: 100%;
+            width: 20%;
+            vertical-align: top;
+        }
+
+        .message{
+            list-style: none;
+        }
+    }
+
+    
+
     
 }
 
-.flexItemMain{
+.flexItemMiddle{
     margin-left: 10px;
     margin-right: 10px;
-    flex: 1 1 100%;
-}
 
-.flexItemLeft{
-    border-radius: 50px 0 0 50px;
+    flex-basis: 400px;
+    flex-grow: 1;
+    flex-shrink: 0;
 }
 
 .flexItemRight{
-    border-radius: 0 50px 50px 0;
+    flex-basis: 200px;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    ul{
+        list-style-type: none;
+    }
+
+    @for $i from 1 through 1000 {
+        .user:nth-child(#{$i}){
+            color: rgb(random(255), random(255), random(255))
+        }
+    }
+
+    .user{
+        font-weight: bold;
+    }
+
+    #userView{
+        height: 95%;
+        margin: 0;
+    }
+}
+
+h1{
+    font-family: '8BITWONDERNominal';
+    margin: 0;
+    height: 5%;
+    text-align: center;
+    vertical-align: middle;
 }
